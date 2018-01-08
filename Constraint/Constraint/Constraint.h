@@ -6,7 +6,6 @@
 //  Copyright © 2018Year yunie. All rights reserved.
 //
 
-//#import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 
 //! Project version number for Constraint.

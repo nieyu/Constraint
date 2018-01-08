@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EAC1396E20010A5A00D6ECB7 /* Constraint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC1396420010A5900D6ECB7 /* Constraint.framework */; };
-		EAC1397320010A5A00D6ECB7 /* ConstraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1397220010A5A00D6ECB7 /* ConstraintTests.swift */; };
 		EAC1397520010A5A00D6ECB7 /* Constraint.h in Headers */ = {isa = PBXBuildFile; fileRef = EAC1396720010A5900D6ECB7 /* Constraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAC1397F200119A800D6ECB7 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1397E200119A800D6ECB7 /* Constraint.swift */; };
 		EAC1398120011ADE00D6ECB7 /* ConstraintAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1398020011ADE00D6ECB7 /* ConstraintAttribute.swift */; };
@@ -17,6 +16,7 @@
 		EAC1398720011B7F00D6ECB7 /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1398620011B7F00D6ECB7 /* UIView+Constraint.swift */; };
 		EAC1398920011D2700D6ECB7 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1398820011D2700D6ECB7 /* Typealiases.swift */; };
 		EAC1398B2001279A00D6ECB7 /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1398A2001279A00D6ECB7 /* ConstraintMaker.swift */; };
+		EAC1398D2001C52400D6ECB7 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC1398C2001C52400D6ECB7 /* Test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,6 @@
 		EAC1396720010A5900D6ECB7 /* Constraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constraint.h; sourceTree = "<group>"; };
 		EAC1396820010A5900D6ECB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAC1396D20010A5A00D6ECB7 /* ConstraintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConstraintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAC1397220010A5A00D6ECB7 /* ConstraintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintTests.swift; sourceTree = "<group>"; };
 		EAC1397420010A5A00D6ECB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAC1397E200119A800D6ECB7 /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		EAC1398020011ADE00D6ECB7 /* ConstraintAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintAttribute.swift; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 		EAC1398620011B7F00D6ECB7 /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
 		EAC1398820011D2700D6ECB7 /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		EAC1398A2001279A00D6ECB7 /* ConstraintMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintMaker.swift; sourceTree = "<group>"; };
+		EAC1398C2001C52400D6ECB7 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +101,7 @@
 		EAC1397120010A5A00D6ECB7 /* ConstraintTests */ = {
 			isa = PBXGroup;
 			children = (
-				EAC1397220010A5A00D6ECB7 /* ConstraintTests.swift */,
+				EAC1398C2001C52400D6ECB7 /* Test.swift */,
 				EAC1397420010A5A00D6ECB7 /* Info.plist */,
 			);
 			path = ConstraintTests;
@@ -232,7 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC1397320010A5A00D6ECB7 /* ConstraintTests.swift in Sources */,
+				EAC1398D2001C52400D6ECB7 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +384,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Constraint/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ny.Constraint;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -409,7 +409,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Constraint/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ny.Constraint;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -426,9 +426,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = UW366M8H5M;
 				INFOPLIST_FILE = ConstraintTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ny.ConstraintTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchsimulator watchos";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -441,9 +442,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = UW366M8H5M;
 				INFOPLIST_FILE = ConstraintTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ny.ConstraintTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchsimulator watchos";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

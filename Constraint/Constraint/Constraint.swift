@@ -14,11 +14,11 @@
 
 public final class Constraint {
     private var item1        : Any
-    private var attribute    : ConstraintAttribute = ConstraintAttribute.none
-    private var relationBy   : ConstraintRelation = ConstraintRelation.equal
+    private var attribute    : ConstraintAttribute = .none
+    private var relationBy   : ConstraintRelation = .equal
     
     private var item2        : Any? //关联约束控件
-    private var attributeTo  : ConstraintAttribute = ConstraintAttribute.none
+    private var attributeTo  : ConstraintAttribute = .none
     private var multiplier   : CGFloat = 1
     private var constant     : CGFloat = 0
     private var constraint   : NSLayoutConstraint?
@@ -40,11 +40,13 @@ public final class Constraint {
     }
     
     private func generateConstraint() {
+        let _attribute: Attribute = attribute.layoutAttributes.first!
+        let _attributeTo: Attribute = attributeTo.layoutAttributes.first!
         constraint = NSLayoutConstraint(item: item1,
-                                        attribute: attribute.layoutAttributes.first!,
+                                        attribute: _attribute,
                                         relatedBy: relationBy.layoutRelation,
                                         toItem: item2,
-                                        attribute: attributeTo.layoutAttributes.first!,
+                                        attribute: _attributeTo,
                                         multiplier: multiplier,
                                         constant: constant)
     }
@@ -58,6 +60,12 @@ public final class Constraint {
     private func deactivate() {
         if constraint != nil {
             NSLayoutConstraint.deactivate([constraint!])
+            attribute = .none
+            relationBy = .equal
+            item2 = nil
+            attributeTo = .none
+            multiplier = 1
+            constant = 0
             constraint = nil 
         }
     }
