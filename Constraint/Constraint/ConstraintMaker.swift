@@ -18,13 +18,13 @@ public final class ConstraintMaker {
     public var attribute1:     ConstraintAttribute
     public var item2:          ConstraintItem?
     public var attribute2:     ConstraintAttribute
-    public var mutiplier:      CGFloat = 1
+    public var multiplier:     CGFloat = 1
     public var constant:       CGFloat = 0
     public var relationBy:     ConstraintRelation = .equal
     
-    private var constants:     [CGFloat] = []
+    fileprivate var constants: [CGFloat] = []
     
-    public var constraints:    [Int: Constraint] = [:]
+    private var constraints:   [Int: Constraint] = [:]
     
     
     /// 约束管理器初始化
@@ -48,22 +48,48 @@ public final class ConstraintMaker {
         self.attribute1 = attribute1
         self.item2 = item2
         self.attribute2 = attribute2
-        self.mutiplier = mutiplier
+        self.multiplier = mutiplier
         self.constant = constant
         self.relationBy = relationBy
+        makeConstraint()
     }
     
     
     public func makeConstraint() {
-        
+        let _attribute1: [Attribute] = attribute1.layoutAttributes
+        let _attribute2: [Attribute] = attribute2.layoutAttributes
+        for (index, aAttribute) in _attribute1.enumerated() {
+            let constraint: Constraint = Constraint(item1: item1.item,
+                                                    attribute: aAttribute,
+                                                    relationBy: relationBy,
+                                                    item2: item2?.item,
+                                                    attributeTo: _attribute2[index],
+                                                    multiplier: multiplier,
+                                                    constant: constant)
+            let rawValue = aAttribute.rawValue
+            constraints[rawValue] = constraint
+        }
+        let _constraints: [Constraint] = Array(constraints.values)
+        Constraint.activate(_constraints)
     }
     
-    public func remakeConstraint() {
-        
+    public func remakeConstraint(item: ConstraintItem,
+                                 attribute: ConstraintAttribute,
+                                 associateConstraint: ConstraintMaker?) {
+        demakeConstraint()
+        item2 = associateConstraint?.item1
+        attribute2 = associateConstraint!.attribute1
+        relationBy = associateConstraint!.relationBy
+        multiplier = associateConstraint!.multiplier
+        constants = associateConstraint!.constants
+        constant = associateConstraint!.constant
+        makeConstraint()
     }
     
     public func demakeConstraint() {
-        
+        let _constraints: [Constraint] = Array(constraints.values)
+        Constraint.deactivate(_constraints)
+        constraints.removeAll()
     }
     
 }
@@ -76,6 +102,7 @@ fileprivate extension ConstraintMaker {
         self.init(item: item, attribute: attribute, mutiplier: mutiplier)
         self.constant = constant
     }
+    
     convenience init(item: ConstraintItem,
                      attribute: ConstraintAttribute,
                      constant: CGFloat,
@@ -87,6 +114,19 @@ fileprivate extension ConstraintMaker {
                   mutiplier: 1,
                   constant: constant, relationBy: relationBy)
     }
+    
+    convenience init(item: ConstraintItem,
+                     attribute: ConstraintAttribute,
+                     constants: [CGFloat],
+                     relationBy: ConstraintRelation) {
+        self.init(item1: item,
+                  attribute1: attribute,
+                  item2: nil,
+                  attribute2: attribute,
+                  mutiplier: 1,
+                  constant: 0, relationBy: relationBy)
+        
+    }
 }
 
 public extension ConstraintMaker {
@@ -97,7 +137,7 @@ public extension ConstraintMaker {
                   attribute1: attribute,
                   item2: item,
                   attribute2: attribute)
-        self.mutiplier = mutiplier
+        self.multiplier = mutiplier
     }
 
     convenience init(item: ConstraintItem,
@@ -108,7 +148,7 @@ public extension ConstraintMaker {
                   attribute1: attribute,
                   item2: associateConstraint!.item2,
                   attribute2: associateConstraint!.attribute2,
-                  mutiplier: associateConstraint!.mutiplier,
+                  mutiplier: associateConstraint!.multiplier,
                   constant: associateConstraint!.constant,
                   relationBy: relationBy)
     }
@@ -162,21 +202,46 @@ public func >== (lhs: inout ConstraintMaker?, rhs: ConstraintMaker) {
 // MARK: 约束自身计算运算符
 // 适用于width height等不用与其他视图关联的约束
 public func === (lhs: inout ConstraintMaker?, rhs: CGFloat) {
-    lhs = ConstraintMaker(item: lhs!.item1, attribute: lhs!.attribute1, constant: rhs, relationBy: .equal)
+    assert(lhs!.attribute1.isSubset(of: [.width, .height]),
+           "Constraint === 运算符仅用于width height等不用与其他视图关联的约束")
+    lhs = ConstraintMaker(item: lhs!.item1,
+                          attribute: lhs!.attribute1,
+                          constant: rhs,
+                          relationBy: .equal)
 }
 
+public func === (lhs: inout ConstraintMaker?, rhs: CGSize) {
+    assert(lhs!.attribute1.contains([.size]),
+           "Constraint === 运算符仅用于size等不用与其他视图关联的约束")
+    lhs = ConstraintMaker(item: lhs!.item1,
+                          attribute: lhs!.attribute1,
+                          constants: [rhs.height, rhs.height],
+                          relationBy: .equal)
+}
+
+//v1.width <== 400 //自身的约束
 infix operator <==: AssignmentPrecedence
 public func <== (lhs: inout ConstraintMaker?, rhs: CGFloat) {
-    lhs = ConstraintMaker(item: lhs!.item1, attribute: lhs!.attribute1, constant: rhs, relationBy: .lessThanOrEqual)
+    assert(lhs!.attribute1.isSubset(of: [.width, .height]),
+           "Constraint <== 运算符仅用于width height等不用与其他视图关联的约束")
+    lhs = ConstraintMaker(item: lhs!.item1,
+                          attribute: lhs!.attribute1,
+                          constant: rhs,
+                          relationBy: .lessThanOrEqual)
 }
 
 infix operator >==: AssignmentPrecedence
 public func >== (lhs: inout ConstraintMaker?, rhs: CGFloat) {
-    lhs = ConstraintMaker(item: lhs!.item1, attribute: lhs!.attribute1, constant: rhs, relationBy: .greaterThanOrEqual)
+    assert(lhs!.attribute1.isSubset(of: [.width, .height]),
+           "Constraint >== 运算符仅用于width height等不用与其他视图关联的约束")
+    lhs = ConstraintMaker(item: lhs!.item1,
+                          attribute: lhs!.attribute1,
+                          constant: rhs,
+                          relationBy: .greaterThanOrEqual)
 }
 
 extension ConstraintMaker: CustomStringConvertible {
     public var description: String {
-        return "输出"
+        return "被约束项\(item1.item) \n \t 约束\(attribute1.layoutAttributes)"
     }
 }

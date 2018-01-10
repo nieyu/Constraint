@@ -16,11 +16,15 @@ public extension View {
 
     var left: ConstraintMaker? {
         set {
-            StoredProperty.left?.demakeConstraint()
             if newValue == nil {
+                StoredProperty.left?.demakeConstraint()
                 StoredProperty.left = newValue
             } else {
-                StoredProperty.left = ConstraintMaker(item: itemFrom, attribute: .left, associateConstraint: newValue)
+                if StoredProperty.left == nil {
+                    StoredProperty.left = ConstraintMaker(item: itemFrom, attribute: .left, associateConstraint: newValue)
+                } else {
+                    StoredProperty.left!.remakeConstraint(item: itemFrom, attribute: .left, associateConstraint: newValue)
+                }
             }
         }
         get { return ConstraintMaker(item: itemTo, attribute: .left) }
@@ -28,11 +32,15 @@ public extension View {
     
     var top: ConstraintMaker? {
         set {
-            StoredProperty.top?.demakeConstraint()
             if newValue == nil {
+                StoredProperty.top?.demakeConstraint()
                 StoredProperty.top = newValue
             } else {
-                StoredProperty.top = ConstraintMaker(item: itemFrom, attribute: .top, associateConstraint: newValue)
+                if StoredProperty.top == nil {
+                    StoredProperty.top = ConstraintMaker(item: itemFrom, attribute: .top, associateConstraint: newValue)
+                } else {
+                    StoredProperty.top!.remakeConstraint(item: itemFrom, attribute: .top, associateConstraint: newValue)
+                }   
             }
         }
         get { return ConstraintMaker(item: itemTo, attribute: .top) }

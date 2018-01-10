@@ -42,7 +42,6 @@ public class Test: XCTestCase {
 //        v1.width <== 400 //自身的约束
 //        v1.size === CGSize(width: 20, height: 30) //自身的约束
 //        v1.edges ==< UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 4)
-        
     }
     
 }
