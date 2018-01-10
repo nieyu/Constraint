@@ -59,13 +59,17 @@ public final class ConstraintMaker {
         let _attribute1: [Attribute] = attribute1.layoutAttributes
         let _attribute2: [Attribute] = attribute2.layoutAttributes
         for (index, aAttribute) in _attribute1.enumerated() {
+            var constantSign: CGFloat = 1
+            if aAttribute == .top || aAttribute == .left {
+                constantSign = -1
+            }
             let constraint: Constraint = Constraint(item1: item1.item,
                                                     attribute: aAttribute,
                                                     relationBy: relationBy,
                                                     item2: item2?.item,
                                                     attributeTo: _attribute2[index],
                                                     multiplier: multiplier,
-                                                    constant: constant)
+                                                    constant: constant * constantSign)
             let rawValue = aAttribute.rawValue
             constraints[rawValue] = constraint
         }

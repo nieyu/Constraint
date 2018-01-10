@@ -24,6 +24,7 @@ public final class Constraint {
     public  var constraint   : NSLayoutConstraint?
     
     #if os(iOS) || os(tvOS)
+    
     public init(item1: Any,
                 attribute: NSLayoutAttribute,
                 relationBy: ConstraintRelation,
@@ -42,6 +43,7 @@ public final class Constraint {
     }
 
     #else
+    
     public init(item1: Any,
                 attribute: NSLayoutConstraint.Attribute,
                 relationBy: ConstraintRelation,
@@ -58,10 +60,9 @@ public final class Constraint {
         self.constant = constant
         generateConstraint()
     }
+    
     #endif
 
-    
-    
     private func generateConstraint() {
 
         constraint = NSLayoutConstraint(item: item1,
@@ -71,7 +72,7 @@ public final class Constraint {
                                         attribute: attributeTo,
                                         multiplier: multiplier,
                                         constant: constant)
-//        activate()
+        
     }
     
     class public func activate(_ constraints: [Constraint]) {
